@@ -1,4 +1,4 @@
-
+var initflag = 'false'
 
 if (Meteor.isServer) {
 // for setting extra fields other then username and password in accounts-ui
@@ -47,11 +47,15 @@ if (Meteor.isClient) {
     var self = this;
 	
     GoogleMaps.ready('map', function(map) {
-/*		  google.maps.event.addListener(map.instance, 'click', function(event) {
-		  Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+		
+		google.maps.event.addListener(map.instance, 'click', function(event) {
+		if(initflag == 'true'){
+		Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng() });
 		  //console.log("clicked");
-	});
-*/
+		}
+		});
+		
+
 	var markers = {};
 	var i = 1;
 	Markers.find().observe({  
@@ -227,15 +231,27 @@ var request = {
   
   //APP-1
 
-  Template.navigation.events({
+
+Template.Initialize.events({
+    'click .done': function(event){
+		console.log("DONE");
+        initflag = 'false';
+	   Router.go('login');
+    },
+	'click .start': function(event){
+		console.log("START");
+        initflag = 'true';
+	   
+    }
+});  
+  
+Template.navigation.events({
     'click .logout': function(event){
         event.preventDefault();
         Meteor.logout();
         Router.go('login');
     }
-});  
-
-  
+}); 
   //define a default set of rules and error messages for our validate functions:
 
 
@@ -461,6 +477,7 @@ Router.route('/registerPass');
 
 Router.route('/map');
 Router.route('/login');
+Router.route('/Initialize');
 
 Router.route('/', {
     name: 'home',

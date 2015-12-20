@@ -79,9 +79,22 @@
         <li><a href="{{pathFor route='registerCab'}}">Cab Driver Registration</a></li>
 		<li><a href="{{pathFor route='registerPass'}}">Passenger Registration</a></li>
         <li><a href="{{pathFor route='login'}}">Login</a></li>
+		<li><a href="{{pathFor route='Initialize'}}">Initialize</a></li>
+		
     {{/if}}
 	</ul>
 </template>
+
+<template name="Initialize">
+	<center><p> Initialize Cab Driver locations by random clicking on the map </p>
+	<button type="button" class="start" name="start">Start</button>
+	<button type="button" class="done" name="done">Done</button>
+	
+	{{> map }}
+	</center>
+	<p>Copyright &copy; Devois, 2014-2015.</p>
+</template>
+
 
 <template name="main">
 <span>	<center><h1>Devois</h1>
